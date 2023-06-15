@@ -1,4 +1,6 @@
+fav = []; //favorties quotes array
 quotes = [
+  //quotes array
   {
     quote: "Be yourself, everyone else is already taken.",
     author: "Oscar Wilde",
@@ -58,11 +60,35 @@ quotes = [
     author: "Mark Twain",
   },
 ];
-random_number = Math.floor(Math.random() * 13); //generates a random number between 0 and 12
-document.getElementById("quote").innerText = '"'+quotes[random_number].quote+'"';
-document.getElementById("author").innerText ="by \"" + quotes[random_number].author+"\"";
+
+previousNumber = Math.floor(Math.random() * 13); //generates a random number between 0 and 12
+document.getElementsByClassName("quote")[0].innerText =
+  '"' + quotes[previousNumber].quote + '"'; //fills the quote
+generatedQuote = quotes[previousNumber].quote; //store the generated quote
+document.getElementsByClassName("author")[0].innerText =
+  "by " + quotes[previousNumber].author; //fills the author of the quote
+generatedAuthor = quotes[previousNumber].author; //store the generated author
+
 function Generate() {
-  random_number = Math.floor(Math.random() * 13); //generates a random number between 0 and 12
-  document.getElementById("quote").innerText = "\""+quotes[random_number].quote+"\"";
-  document.getElementById("author").innerText ='by "' + quotes[random_number].author+'"';
+  do {
+    //makes sure its different from the previous number
+    randomNumber = Math.floor(Math.random() * 13);
+  } while (randomNumber == previousNumber);
+  previousNumber = randomNumber;
+  document.getElementsByClassName("quote")[0].innerText =
+    '"' + quotes[randomNumber].quote + '"';
+  generatedQuote = quotes[previousNumber].quote;
+  document.getElementsByClassName("author")[0].innerText =
+    "by " + quotes[randomNumber].author;
+  generatedAuthor = quotes[previousNumber].author;
+}
+
+function save() {
+  const favObject = {
+    //creates an object of the favorite quote and its author
+    quote: generatedQuote,
+    author: generatedAuthor,
+  };
+  fav.push(favObject); //add that object to the favorites quotes array
+  localStorage.setItem("favoriteQuotes", JSON.stringify(fav)); //Storing the fav array in local storage
 }
