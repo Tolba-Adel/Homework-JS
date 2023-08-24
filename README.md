@@ -1,2 +1,2 @@
-# Homework-JS
+# Quote Genrator with JS
  
